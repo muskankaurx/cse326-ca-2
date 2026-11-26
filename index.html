@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLOTHIFY | Sustainable Indian Fashion Marketplace</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ==========================================================
+         1. TOP ECO-SALE TICKER
+    =========================================================== -->
+    <div class="top-bar">
+        🌿 GREEN FEST SALE: FLAT 30% OFF ON HANDLOOM & UPCYCLED FASHION • 0% NO-COST EMI AVAILABLE 🌿
+    </div>
+
+    <!-- ==========================================================
+         2. NAVBAR (Myntra/Flipkart Style Page Switcher)
+    =========================================================== -->
+    <header class="navbar">
+        <div class="logo" onclick="openPage('shop-page')">🌿 CLOTH<span>IFY</span></div>
+        <nav>
+            <button class="nav-btn active" id="btn-shop-page" onclick="openPage('shop-page')">Shop</button>
+            <button class="nav-btn" id="btn-cart-page" onclick="openPage('cart-page')">
+                Cart (<span id="cart-count">0</span>)
+            </button>
+            <button class="nav-btn" id="btn-admin-page" onclick="openPage('admin-page')">Admin Panel</button>
+            <button class="nav-btn" id="btn-auth-page" onclick="openPage('auth-page')">
+                <span id="nav-user">Login</span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- ==========================================================
+         VIEW 1: HOME & SHOP CATALOGUE (Default Open View)
+    =========================================================== -->
+    <main id="shop-page" class="page-view">
+        
+        <!-- SALE ADVERTISEMENT HERO BANNER (Without Model Photo) -->
+        <section class="sale-hero">
+            <div class="sale-left">
+                <span class="sale-tag">✦ LIMITED TIME CONSCIOUS DROP</span>
+                <h1>THE GREAT GREEN LUXURY SALE</h1>
+                <p>Upgrade your wardrobe with 100% Organic Kutch Cotton, Ahimsa Silk & Upcycled Denim. Save water with every outfit.</p>
+                <div class="hero-btns">
+                    <a href="#catalogue-area" class="btn-emerald">Shop 20 Products</a>
+                    <button class="btn-gold" onclick="demoLogin()">1-Click Demo Login</button>
+                </div>
+            </div>
+
+            <!-- Promotional Offer Card -->
+            <div class="sale-offer-card">
+                <p class="offer-small">FESTIVE ECO-OFFER</p>
+                <h2>FLAT <span>30% OFF</span></h2>
+                <p class="offer-code">USE CODE: <strong>ECO30</strong></p>
+                <div class="offer-perks">
+                    <span>✔ 3-Month 0% No-Cost EMI</span>
+                    <span>✔ 100% Plastic-Free Delivery</span>
+                    <span>✔ Verified Water-Saved Tag</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ECO IMPACT HIGHLIGHT BAR -->
+        <section class="eco-strip container">
+            <div class="eco-box">
+                <h3>💧 65,000+ Litres</h3>
+                <p>Water Saved by Clothify Community</p>
+            </div>
+            <div class="eco-box">
+                <h3>🌱 100% Botanical</h3>
+                <p>Zero Toxic Chemical Dyes</p>
+            </div>
+            <div class="eco-box">
+                <h3>💳 0% EMI</h3>
+                <p>Easy Monthly Installments</p>
+            </div>
+        </section>
+
+        <!-- PRODUCT CATALOGUE SECTION -->
+        <section id="catalogue-area" class="container">
+            <div class="section-top">
+                <h2>Explore Sustainable Collection (20 Items)</h2>
+            </div>
+
+            <!-- Search, Category Filter & Sort -->
+            <div class="filter-bar">
+                <input type="text" id="search-input" placeholder="Search kurta, saree, denim, sneakers..." onkeyup="filterProducts()">
+
+                <select id="category-filter" onchange="filterProducts()">
+                    <option value="All">All Categories (20)</option>
+                    <option value="Men">Men (5)</option>
+                    <option value="Women">Women (5)</option>
+                    <option value="Upcycled">Upcycled (5)</option>
+                    <option value="Accessories">Accessories (5)</option>
+                </select>
+
+                <select id="sort-filter" onchange="filterProducts()">
+                    <option value="default">Sort By: Featured</option>
+                    <option value="low">Price: Low to High</option>
+                    <option value="high">Price: High to Low</option>
+                </select>
+            </div>
+
+            <!-- Product Grid -->
+            <div id="product-list" class="product-grid"></div>
+        </section>
+    </main>
+
+    <!-- ==========================================================
+         VIEW 2: PRODUCT DETAILS, EMI CALCULATOR & REVIEWS PAGE
+         (Opens only when user clicks "View Details" on a product)
+    =========================================================== -->
+    <section id="detail-page" class="page-view container hidden">
+        <button class="btn-outline" onclick="openPage('shop-page')">← Back to Shop</button>
+        <h2 class="page-title">Product Details, Eco-Impact & Reviews</h2>
+        
+        <div class="two-col">
+            <!-- Selected Product Details + EMI -->
+            <div id="product-detail-box" class="card-box"></div>
+
+            <!-- Customer Reviews -->
+            <div class="card-box">
+                <h3>Customer Reviews & Ratings</h3>
+                <div id="reviews-list"></div>
+
+                <form onsubmit="addReview(event)" style="margin-top: 15px;">
+                    <input type="text" id="rev-name" placeholder="Your Name" required>
+                    <select id="rev-rating">
+                        <option value="5">★★★★★ (5 Stars - Excellent)</option>
+                        <option value="4">★★★★☆ (4 Stars - Very Good)</option>
+                        <option value="3">★★★☆☆ (3 Stars - Good)</option>
+                    </select>
+                    <input type="text" id="rev-comment" placeholder="Write your review..." required>
+                    <button type="submit" class="btn-emerald">Post Review</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================
+         VIEW 3: SHOPPING CART & CHECKOUT PAGE
+         (Opens only when user clicks "Cart" in Navbar)
+    =========================================================== -->
+    <section id="cart-page" class="page-view container hidden">
+        <button class="btn-outline" onclick="openPage('shop-page')">← Continue Shopping</button>
+        <h2 class="page-title">Your Clothify Bag & Checkout</h2>
+
+        <!-- Live Eco-Savings Banner inside Cart -->
+        <div class="cart-eco-banner">
+            🌿 <strong>Your Eco-Impact:</strong> You are saving <span id="cart-water-saved">0</span> Litres of clean water with this bag!
+        </div>
+
+        <div class="two-col">
+            <!-- Cart Items -->
+            <div class="card-box">
+                <h3>Bag Items</h3>
+                <div id="cart-items">Your cart is empty.</div>
+                <h3 style="margin-top: 15px; color: #D4AF37;">Total Payable: ₹<span id="cart-total">0</span></h3>
+            </div>
+
+            <!-- Checkout Form -->
+            <form onsubmit="placeOrder(event)" class="card-box">
+                <h3>Delivery & EMI Checkout</h3>
+                <input type="text" id="cust-name" placeholder="Full Name" required>
+                <input type="text" id="cust-address" placeholder="Full Delivery Address & Pincode" required>
+                
+                <label>Payment Option:</label>
+                <select id="payment-method">
+                    <option value="UPI">UPI / Google Pay / PhonePe</option>
+                    <option value="Card">Credit / Debit Card</option>
+                    <option value="3-Month No-Cost EMI">3-Month No-Cost EMI (0% Interest)</option>
+                    <option value="6-Month Easy EMI">6-Month Easy EMI</option>
+                </select>
+
+                <button type="submit" class="btn-gold">Confirm & Place Order</button>
+                <div id="order-receipt" class="receipt-msg"></div>
+            </form>
+        </div>
+    </section>
+
+    <!-- ==========================================================
+         VIEW 4: LOGIN & REGISTRATION PAGE
+         (Opens only when user clicks "Login" in Navbar)
+    =========================================================== -->
+    <section id="auth-page" class="page-view container hidden">
+        <button class="btn-outline" onclick="openPage('shop-page')">← Back to Shop</button>
+        <h2 class="page-title">Account Login & Registration</h2>
+
+        <div class="two-col">
+            <form onsubmit="registerUser(event)" class="card-box">
+                <h3>New to Clothify? Register</h3>
+                <input type="text" id="reg-name" placeholder="Enter Full Name" required>
+                <input type="email" id="reg-email" placeholder="Enter Email" required>
+                <input type="password" id="reg-pass" placeholder="Create Password (min 6 chars)" minlength="6" required>
+                <button type="submit" class="btn-emerald">Create Account</button>
+            </form>
+
+            <form onsubmit="loginUser(event)" class="card-box">
+                <h3>Already Have an Account? Login</h3>
+                <input type="email" id="login-email" placeholder="Enter Email" required>
+                <input type="password" id="login-pass" placeholder="Enter Password" required>
+                <button type="submit" class="btn-gold">Sign In</button>
+                <button type="button" class="btn-outline" style="margin-left:8px;" onclick="demoLogin()">Demo Login</button>
+                <p id="auth-status" class="status-text">Status: Not Logged In</p>
+            </form>
+        </div>
+    </section>
+
+    <!-- ==========================================================
+         VIEW 5: ADMIN CRUD PANEL PAGE
+         (Opens only when user clicks "Admin Panel" in Navbar)
+    =========================================================== -->
+    <section id="admin-page" class="page-view container hidden">
+        <button class="btn-outline" onclick="openPage('shop-page')">← Back to Storefront</button>
+        <h2 class="page-title">Clothify Admin CRUD Manager</h2>
+
+        <div class="two-col">
+            <!-- Create / Update Product -->
+            <form onsubmit="saveProduct(event)" class="card-box">
+                <h3 id="admin-heading">Add New Sustainable Product</h3>
+                <input type="hidden" id="edit-index" value="-1">
+
+                <input type="text" id="admin-name" placeholder="Product Name" required>
+                <select id="admin-category">
+                    <option value="Men">Men</option>
+                    <option value="Women">Women</option>
+                    <option value="Upcycled">Upcycled</option>
+                    <option value="Accessories">Accessories</option>
+                </select>
+                <input type="number" id="admin-price" placeholder="Price in ₹ (e.g. 2499)" required>
+                <input type="text" id="admin-material" placeholder="Eco Material (e.g. Organic Hemp)" required>
+                <input type="number" id="admin-water" placeholder="Water Saved in Litres (e.g. 2500)" required>
+                <input type="url" id="admin-image" placeholder="Image URL (https://...)" required>
+
+                <button type="submit" class="btn-emerald">Save Product</button>
+            </form>
+
+            <!-- Read / Delete Products Table -->
+            <div class="card-box">
+                <h3>Live Inventory (20+ Products)</h3>
+                <div style="max-height: 450px; overflow-y: auto;">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-table-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================
+         FOOTER (Always Visible at Bottom)
+    =========================================================== -->
+    <footer class="footer">
+        <p style="font-size: 16px; color: #F3F4F6; margin-bottom: 6px;">
+            Crafted with 🌿 by <strong style="color: #D4AF37;">Muskanpreet Kaur</strong>, 
+            <strong style="color: #10B981;">Ayushman Singh</strong> & 
+            <strong style="color: #D4AF37;">Jasleen Kaur</strong>
+        </p>
+        <p style="font-size: 13px; color: #9CA3AF;">
+            CLOTHIFY • Sustainable Fashion Marketplace | HTML, CSS & JavaScript Project
+        </p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
